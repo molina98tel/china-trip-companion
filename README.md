@@ -6,6 +6,7 @@ Guía de viaje móvil y offline para Pekín, Xi'an y Shanghái del 30 de octubre
 
 - Pantalla “Hoy” adaptada automáticamente a la fecha del viaje.
 - Itinerario completo con nombres en chino y acceso a Amap.
+- Reservas y entradas con proveedor recomendado, precio orientativo, fecha límite, traslado y enlaces directos.
 - Hoteles, transporte, pagos, emergencias y frases útiles.
 - Guía de compras por ciudad para ropa, móviles y tecnología, con acceso directo a Amap.
 - Checklist y notas guardadas localmente en el dispositivo.

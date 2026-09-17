@@ -45,7 +45,10 @@
           <h3>${item.title}</h3>
           <button class="cn-copy" data-copy="${item.cn}" title="Copiar nombre en chino">${item.cn}<small> copiar</small></button>
           <p>${item.detail}</p>
-          <a class="map-link" href="${amapUrl(item.map)}" target="_blank" rel="noreferrer">Abrir en Amap <span aria-hidden="true">↗</span></a>
+          <div class="timeline-actions">
+            <a class="map-link" href="${amapUrl(item.map)}" target="_blank" rel="noreferrer">Abrir en Amap <span aria-hidden="true">↗</span></a>
+            ${item.booking ? `<button class="booking-jump" data-booking="${item.booking}">Cómo reservar <span aria-hidden="true">→</span></button>` : ""}
+          </div>
         </div>
       </article>`).join("");
   }
@@ -80,6 +83,34 @@
   function renderHotels() {
     $("#hotelList").innerHTML = data.hotels.map(hotel => `
       <article><div class="hotel-city"><b>${hotel.cn}</b><span>${hotel.city}</span></div><div><strong>${hotel.name}</strong><span>${hotel.dates}</span></div><a href="${amapUrl(hotel.map)}" target="_blank" rel="noreferrer" aria-label="Abrir ${hotel.name} en Amap">↗</a></article>`).join("");
+  }
+  function renderBookings() {
+    const cities = [...new Set(data.bookings.map(booking => booking.city))];
+    $("#bookingList").innerHTML = cities.map(city => {
+      const bookings = data.bookings.filter(booking => booking.city === city);
+      const { cityCn } = bookings[0];
+      return `
+        <section class="booking-city">
+          <div class="booking-city-heading"><span>${cityCn}</span><div><small>RESERVAS EN</small><h2>${city}</h2></div></div>
+          <div class="booking-grid">${bookings.map(booking => `
+            <article class="booking-card" id="booking-${booking.id}">
+              <div class="booking-topline"><span class="booking-badge ${booking.level}">${booking.label}</span><span class="booking-date">${booking.date}</span></div>
+              <h3>${booking.title}</h3>
+              <button class="cn-copy" data-copy="${booking.cn}" title="Copiar nombre en chino">${booking.cn}<small> copiar</small></button>
+              <div class="booking-summary"><strong>${booking.price}</strong><span>${booking.provider}</span></div>
+              <p>${booking.recommendation}</p>
+              <div class="booking-info">
+                <div><small>CUÁNDO</small><span>${booking.timing}</span></div>
+                <div><small>TRASLADO</small><span>${booking.transfer}</span></div>
+              </div>
+              <div class="booking-actions">
+                ${booking.primary ? `<a class="primary-booking" href="${booking.primary.url}" target="_blank" rel="noreferrer">${booking.primary.label} <span aria-hidden="true">↗</span></a>` : ""}
+                ${booking.alternate ? `<a class="secondary-booking" href="${booking.alternate.url}" target="_blank" rel="noreferrer">${booking.alternate.label}</a>` : ""}
+                <a class="booking-map" href="${amapUrl(booking.map)}" target="_blank" rel="noreferrer">Ver punto en Amap</a>
+              </div>
+            </article>`).join("")}</div>
+        </section>`;
+    }).join("");
   }
   function renderShopping(city = "all") {
     const groups = city === "all" ? data.shopping : data.shopping.filter(group => group.city === city);
@@ -137,10 +168,10 @@
     });
     updateProgress();
   }
-  function navigate(view) {
+  function navigate(view, resetScroll = true) {
     $$(".view").forEach(section => { const active = section.id === `view-${view}`; section.hidden = !active; section.classList.toggle("active", active); });
     $$(".bottom-nav [data-view]").forEach(button => button.classList.toggle("active", button.dataset.view === view));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (resetScroll) window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function initCurrency() {
     const cny = $("#cnyInput"); const rate = $("#rateInput"); const out = $("#eurOutput");
@@ -168,8 +199,21 @@
     if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
   }
 
-  renderToday(); renderRoute(); renderHotels(); renderShopping(); renderChecklist(); initShoppingFilters(); initCurrency(); initInstall(); registerWebMcp();
+  renderToday(); renderRoute(); renderHotels(); renderBookings(); renderShopping(); renderChecklist(); initShoppingFilters(); initCurrency(); initInstall(); registerWebMcp();
   $$("[data-view]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.view)));
   $$("[data-go]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.go)));
-  document.addEventListener("click", event => { const button = event.target.closest("[data-copy]"); if (button) copyText(button.dataset.copy); });
+  document.addEventListener("click", event => {
+    const copyButton = event.target.closest("[data-copy]");
+    if (copyButton) copyText(copyButton.dataset.copy);
+    const bookingButton = event.target.closest("[data-booking]");
+    if (!bookingButton) return;
+    navigate("bookings", false);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const card = document.getElementById(`booking-${bookingButton.dataset.booking}`);
+      if (!card) return;
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.classList.add("highlight");
+      setTimeout(() => card.classList.remove("highlight"), 2200);
+    }));
+  });
 })();

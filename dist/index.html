@@ -45,6 +45,7 @@
 
       <section class="quick-grid" aria-label="Accesos rápidos">
         <button class="quick-card" data-go="route"><span aria-hidden="true">路线</span><strong>Ruta completa</strong><small>9 noches, día a día</small></button>
+        <button class="quick-card" data-go="bookings"><span aria-hidden="true">票</span><strong>Reservas</strong><small>Entradas, trenes y excursiones</small></button>
         <button class="quick-card" data-go="essentials"><span aria-hidden="true">必备</span><strong>Imprescindibles</strong><small>Pagos, apps y emergencias</small></button>
         <button class="quick-card" data-go="shopping"><span aria-hidden="true">购</span><strong>Compras</strong><small>Ropa, móviles y tecnología</small></button>
         <button class="quick-card" data-go="checklist"><span aria-hidden="true">清单</span><strong>Checklist</strong><small id="checklistProgress">0 completados</small></button>
@@ -59,6 +60,18 @@
         <div><b>上海</b><span>Shanghái</span><small>3 noches</small></div>
       </div>
       <div id="dayList" class="day-list"></div>
+    </section>
+
+    <section id="view-bookings" class="view" aria-labelledby="bookingsTitle" hidden>
+      <div class="page-heading"><span class="kicker">QUÉ RESERVAR Y DÓNDE</span><h1 id="bookingsTitle">Reservas y entradas</h1><p>La opción recomendada para cada visita, con precio orientativo, plazo y traslado desde vuestro itinerario.</p></div>
+
+      <aside class="booking-intro">
+        <span class="card-icon" aria-hidden="true">证</span>
+        <div><span class="kicker">REGLA IMPORTANTE</span><h2>Usad exactamente los nombres del pasaporte</h2><p>He priorizado las webs oficiales. Cuando una plataforma facilita el pago a extranjeros o aporta un buen guía/traslado, indico la mejor alternativa. No compréis entradas a vendedores de la calle.</p></div>
+      </aside>
+
+      <div id="bookingList" class="booking-list"></div>
+      <p class="booking-updated">Precios y canales revisados el 17 de septiembre de 2026. Confirmad el importe final y la política de cancelación antes de pagar.</p>
     </section>
 
     <section id="view-essentials" class="view" aria-labelledby="essentialsTitle" hidden>
@@ -143,6 +156,7 @@
   <nav class="bottom-nav" aria-label="Navegación principal">
     <button class="active" data-view="today"><span aria-hidden="true">今</span>Hoy</button>
     <button data-view="route"><span aria-hidden="true">程</span>Ruta</button>
+    <button data-view="bookings"><span aria-hidden="true">票</span>Reservas</button>
     <button data-view="essentials"><span aria-hidden="true">备</span>Útiles</button>
     <button data-view="shopping"><span aria-hidden="true">购</span>Compras</button>
     <button data-view="checklist"><span aria-hidden="true">✓</span>Lista</button>
