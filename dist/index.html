@@ -46,6 +46,7 @@
       <section class="quick-grid" aria-label="Accesos rápidos">
         <button class="quick-card" data-go="route"><span aria-hidden="true">路线</span><strong>Ruta completa</strong><small>9 noches, día a día</small></button>
         <button class="quick-card" data-go="essentials"><span aria-hidden="true">必备</span><strong>Imprescindibles</strong><small>Pagos, apps y emergencias</small></button>
+        <button class="quick-card" data-go="shopping"><span aria-hidden="true">购</span><strong>Compras</strong><small>Ropa, móviles y tecnología</small></button>
         <button class="quick-card" data-go="checklist"><span aria-hidden="true">清单</span><strong>Checklist</strong><small id="checklistProgress">0 completados</small></button>
       </section>
     </section>
@@ -99,6 +100,34 @@
       </section>
     </section>
 
+    <section id="view-shopping" class="view" aria-labelledby="shoppingTitle" hidden>
+      <div class="page-heading"><span class="kicker">GUÍA DE COMPRAS</span><h1 id="shoppingTitle">Qué comprar y dónde</h1><p>Selección práctica para encontrar ropa, móviles y tecnología sin desviaros del viaje.</p></div>
+
+      <section class="buy-plan" aria-label="Estrategia de compras">
+        <span class="card-icon" aria-hidden="true">购</span>
+        <div><span class="kicker">ESTRATEGIA</span><h2>Mirar en Pekín · comprar en Shanghái</h2><p>Probad modelos y comparad precios durante el viaje. Reservad la compra importante para Shanghái y dejad al menos un día para configurarla y comprobarla. Confirmad en Amap el horario y la sucursal exacta el mismo día.</p></div>
+      </section>
+
+      <div class="shop-filters" role="group" aria-label="Filtrar lugares por ciudad">
+        <button class="active" data-shop-city="all">Todos</button>
+        <button data-shop-city="Pekín">Pekín</button>
+        <button data-shop-city="Xi'an">Xi'an</button>
+        <button data-shop-city="Shanghái">Shanghái</button>
+      </div>
+      <div id="shoppingList" class="shopping-list"></div>
+
+      <section class="section-block purchase-check">
+        <div class="section-heading"><div><span class="kicker">ANTES DE PAGAR</span><h2>Si compras un móvil</h2></div></div>
+        <div class="check-points">
+          <div><b>1</b><p><strong>Tienda oficial</strong><span>Xiaomi Home, Huawei u otra tienda de marca. Pide factura.</span></p></div>
+          <div><b>2</b><p><strong>Modelo exacto</strong><span>Fotografía caja, referencia, memoria y precio. No basta con el nombre comercial.</span></p></div>
+          <div><b>3</b><p><strong>Compatibilidad</strong><span>ROM, Google, Wallet, Android Auto, eSIM y bandas 4G/5G de España.</span></p></div>
+          <div><b>4</b><p><strong>Prueba real</strong><span>Configura SIM, notificaciones, cámara, carga y apps antes de abandonar China.</span></p></div>
+        </div>
+        <p class="shopping-warning"><strong>Regla rápida:</strong> por menos de 150 € de ahorro, mejor comprar la versión europea en España; a partir de 250–300 € empieza a compensar asumir una versión china.</p>
+      </section>
+    </section>
+
     <section id="view-checklist" class="view" aria-labelledby="checklistTitle" hidden>
       <div class="page-heading"><span class="kicker">TODO CONTROLADO</span><h1 id="checklistTitle">Checklist y notas</h1><p>Los cambios se guardan solo en este dispositivo.</p></div>
       <div class="progress-track" aria-label="Progreso de la lista"><span id="progressBar"></span></div>
@@ -115,6 +144,7 @@
     <button class="active" data-view="today"><span aria-hidden="true">今</span>Hoy</button>
     <button data-view="route"><span aria-hidden="true">程</span>Ruta</button>
     <button data-view="essentials"><span aria-hidden="true">备</span>Útiles</button>
+    <button data-view="shopping"><span aria-hidden="true">购</span>Compras</button>
     <button data-view="checklist"><span aria-hidden="true">✓</span>Lista</button>
   </nav>
 

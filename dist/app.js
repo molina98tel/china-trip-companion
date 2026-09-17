@@ -81,6 +81,31 @@
     $("#hotelList").innerHTML = data.hotels.map(hotel => `
       <article><div class="hotel-city"><b>${hotel.cn}</b><span>${hotel.city}</span></div><div><strong>${hotel.name}</strong><span>${hotel.dates}</span></div><a href="${amapUrl(hotel.map)}" target="_blank" rel="noreferrer" aria-label="Abrir ${hotel.name} en Amap">↗</a></article>`).join("");
   }
+  function renderShopping(city = "all") {
+    const groups = city === "all" ? data.shopping : data.shopping.filter(group => group.city === city);
+    $("#shoppingList").innerHTML = groups.map(group => `
+      <section class="shopping-city">
+        <div class="shopping-city-heading">
+          <span class="city-hanzi">${group.cityCn}</span>
+          <div><span class="kicker">${group.city}</span><h2>${group.strategy}</h2></div>
+        </div>
+        <div class="shop-grid">${group.places.map(place => `
+          <article class="shop-card">
+            <div class="shop-meta"><span>${place.type}</span><b>${place.priority}</b></div>
+            <h3>${place.name}</h3>
+            <button class="cn-copy" data-copy="${place.cn}" title="Copiar nombre en chino">${place.cn}<small> copiar</small></button>
+            <p>${place.detail}</p>
+            <div class="best-for"><small>MEJOR PARA</small><strong>${place.bestFor}</strong></div>
+            <a class="map-link" href="${amapUrl(place.map)}" target="_blank" rel="noreferrer">Abrir en Amap <span aria-hidden="true">↗</span></a>
+          </article>`).join("")}</div>
+      </section>`).join("");
+  }
+  function initShoppingFilters() {
+    $$("[data-shop-city]").forEach(button => button.addEventListener("click", () => {
+      $$("[data-shop-city]").forEach(item => item.classList.toggle("active", item === button));
+      renderShopping(button.dataset.shopCity);
+    }));
+  }
   function updateProgress() {
     const all = data.checklist.flatMap((group, gi) => group.items.map((_, ii) => `${gi}-${ii}`));
     const complete = all.filter(id => state.checks[id]).length;
@@ -143,7 +168,7 @@
     if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
   }
 
-  renderToday(); renderRoute(); renderHotels(); renderChecklist(); initCurrency(); initInstall(); registerWebMcp();
+  renderToday(); renderRoute(); renderHotels(); renderShopping(); renderChecklist(); initShoppingFilters(); initCurrency(); initInstall(); registerWebMcp();
   $$("[data-view]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.view)));
   $$("[data-go]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.go)));
   document.addEventListener("click", event => { const button = event.target.closest("[data-copy]"); if (button) copyText(button.dataset.copy); });
