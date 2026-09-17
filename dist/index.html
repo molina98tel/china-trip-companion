@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#8f1d24">
+  <meta name="description" content="Guía móvil y offline del viaje a China de Javier: Pekín, Xi'an y Shanghái.">
+  <title>China 2026 · Guía de viaje</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">中</span>
+      <div><strong>China 2026</strong><span>Pekín · Xi'an · Shanghái</span></div>
+    </div>
+    <button id="installBtn" class="ghost-button" hidden>Instalar app</button>
+  </header>
+
+  <main id="main" class="app-shell">
+    <section id="view-today" class="view active" aria-labelledby="todayTitle">
+      <article class="hero-card">
+        <img src="./china-journey.webp" alt="Panorama ilustrado de la Gran Muralla, Xi'an y Shanghái" width="1600" height="900">
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <span id="heroEyebrow" class="eyebrow">Tu viaje, listo en el móvil</span>
+          <h1 id="todayTitle">China en 9 noches</h1>
+          <p id="heroSubtitle">Todo lo importante, incluso sin conexión.</p>
+        </div>
+      </article>
+
+      <div id="tripStatus" class="status-strip" role="status"></div>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div><span class="kicker">PLAN DEL DÍA</span><h2 id="currentDayTitle">Preparando itinerario…</h2></div>
+          <button id="copyDayBtn" class="icon-button" aria-label="Copiar el plan del día">Copiar</button>
+        </div>
+        <div id="todayTimeline" class="timeline"></div>
+      </section>
+
+      <section class="quick-grid" aria-label="Accesos rápidos">
+        <button class="quick-card" data-go="route"><span aria-hidden="true">路线</span><strong>Ruta completa</strong><small>9 noches, día a día</small></button>
+        <button class="quick-card" data-go="essentials"><span aria-hidden="true">必备</span><strong>Imprescindibles</strong><small>Pagos, apps y emergencias</small></button>
+        <button class="quick-card" data-go="checklist"><span aria-hidden="true">清单</span><strong>Checklist</strong><small id="checklistProgress">0 completados</small></button>
+      </section>
+    </section>
+
+    <section id="view-route" class="view" aria-labelledby="routeTitle" hidden>
+      <div class="page-heading"><span class="kicker">30 OCT — 8 NOV</span><h1 id="routeTitle">Itinerario</h1><p>Toca un día para ver horarios, trayectos y nombres en chino.</p></div>
+      <div class="city-route" aria-label="Ruta entre ciudades">
+        <div><b>北京</b><span>Pekín</span><small>4 noches</small></div><i></i>
+        <div><b>西安</b><span>Xi'an</span><small>2 noches</small></div><i></i>
+        <div><b>上海</b><span>Shanghái</span><small>3 noches</small></div>
+      </div>
+      <div id="dayList" class="day-list"></div>
+    </section>
+
+    <section id="view-essentials" class="view" aria-labelledby="essentialsTitle" hidden>
+      <div class="page-heading"><span class="kicker">ANTES Y DURANTE</span><h1 id="essentialsTitle">Imprescindibles</h1><p>Lo que más os conviene tener a mano en China.</p></div>
+
+      <div class="info-grid">
+        <article class="info-card accent"><span class="card-icon">付</span><h2>Pagos</h2><p>Lleva Alipay y WeChat Pay configurados con dos tarjetas. Guarda también algo de efectivo y la tarjeta física.</p></article>
+        <article class="info-card"><span class="card-icon">网</span><h2>Internet</h2><p>Instala la eSIM y la VPN antes de salir de España. Descarga mapas y chino offline en el traductor.</p></article>
+        <article class="info-card"><span class="card-icon">行</span><h2>Transporte</h2><p>Usa Amap para orientarte, DiDi para taxis y 12306/Trip.com para trenes. Conserva siempre el pasaporte.</p></article>
+        <article class="info-card"><span class="card-icon">证</span><h2>Documentos</h2><p>Pasaportes, seguro y reservas también sin conexión. El nombre del hotel en chino ayuda mucho al llegar.</p></article>
+      </div>
+
+      <section class="section-block">
+        <div class="section-heading"><div><span class="kicker">ALOJAMIENTOS</span><h2>Hoteles</h2></div></div>
+        <div id="hotelList" class="hotel-list"></div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><span class="kicker">CAMBIO RÁPIDO</span><h2>Yuanes a euros</h2></div></div>
+        <div class="currency-box">
+          <label>CNY <input id="cnyInput" type="number" inputmode="decimal" value="100" min="0"></label>
+          <span aria-hidden="true">≈</span>
+          <output id="eurOutput">12,50 €</output>
+          <label class="rate-label">1 € = <input id="rateInput" type="number" inputmode="decimal" value="8" min="0.1" step="0.01"> CNY</label>
+        </div>
+        <p class="fine-print">Tipo editable: actualízalo antes del viaje.</p>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><span class="kicker">AYUDA</span><h2>Emergencias</h2></div></div>
+        <div class="emergency-row"><a href="tel:110"><strong>110</strong><span>Policía</span></a><a href="tel:120"><strong>120</strong><span>Ambulancia</span></a><a href="tel:119"><strong>119</strong><span>Bomberos</span></a></div>
+      </section>
+
+      <section class="section-block phrases">
+        <div class="section-heading"><div><span class="kicker">PARA ENSEÑAR</span><h2>Frases útiles</h2></div></div>
+        <button data-copy="请带我们去这个地址。"><span>请带我们去这个地址。</span><small>Por favor, llévenos a esta dirección.</small></button>
+        <button data-copy="我们不吃辣。"><span>我们不吃辣。</span><small>No comemos picante.</small></button>
+        <button data-copy="请问洗手间在哪里？"><span>请问洗手间在哪里？</span><small>¿Dónde está el baño?</small></button>
+      </section>
+    </section>
+
+    <section id="view-checklist" class="view" aria-labelledby="checklistTitle" hidden>
+      <div class="page-heading"><span class="kicker">TODO CONTROLADO</span><h1 id="checklistTitle">Checklist y notas</h1><p>Los cambios se guardan solo en este dispositivo.</p></div>
+      <div class="progress-track" aria-label="Progreso de la lista"><span id="progressBar"></span></div>
+      <div id="checklistGroups" class="checklist-groups"></div>
+      <section class="notes-card">
+        <label for="tripNotes"><span class="kicker">NOTAS PERSONALES</span><strong>Reservas, localizadores y recordatorios</strong></label>
+        <textarea id="tripNotes" rows="8" placeholder="Ej.: localizador del tren, dirección completa del hotel, punto de encuentro de Mutianyu…"></textarea>
+        <span id="saveState" class="save-state">Guardado automáticamente</span>
+      </section>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <button class="active" data-view="today"><span aria-hidden="true">今</span>Hoy</button>
+    <button data-view="route"><span aria-hidden="true">程</span>Ruta</button>
+    <button data-view="essentials"><span aria-hidden="true">备</span>Útiles</button>
+    <button data-view="checklist"><span aria-hidden="true">✓</span>Lista</button>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

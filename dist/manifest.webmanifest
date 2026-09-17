@@ -1,0 +1,12 @@
+{
+  "name": "China 2026 · Guía de viaje",
+  "short_name": "China 2026",
+  "description": "Itinerario offline de Pekín, Xi'an y Shanghái",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1014",
+  "theme_color": "#8f1d24",
+  "lang": "es",
+  "icons": [{ "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
